@@ -1,13 +1,3 @@
-# WeWorkFinanceSDK
-企业微信会话存档SDK（基于企业微信C版官方SDK封装），暂时只支持在`linux`环境下使用当前SDK。
-
-### 使用方式
-
-`clone`项目到自己项目内并`cd`到`WeWorkFinanceSDK/lib`文件夹内执行`export LD_LIBRARY_PATH=$(pwd)`命令设置动态链接库检索地址，然后在项目内引入当前包即可直接使用。
-
-### Example
-
-```go
 package main
 
 import (
@@ -47,4 +37,5 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxx
 		fmt.Println(string(str))
 	}
 }
-```
+
+
