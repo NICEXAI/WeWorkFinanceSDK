@@ -99,10 +99,10 @@ func (s *Client) GetChatData(seq uint64, limit uint64, proxy string, passwd stri
 *      0   - 成功
 *      !=0 - 失败
  */
-func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg map[string]interface{}, err error) {
+func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg ChatMessage, err error) {
 	encryptKey, err := RSADecryptBase64(s.privateKey, encrypt_random_key)
 	if err != nil {
-		return nil, NewSDKErr(10006)
+		return msg, NewSDKErr(10006)
 	}
 	encryptKeyC := C.CString(string(encryptKey))
 	encryptMsgC := C.CString(encryptMsg)
@@ -116,16 +116,18 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 	retC := C.DecryptData(encryptKeyC, encryptMsgC, msgSlice)
 	ret := int(retC)
 	if ret != 0 {
-		return nil, NewSDKErr(ret)
+		return msg, NewSDKErr(ret)
 	}
 	buf := s.GetContentFromSlice(msgSlice)
 	var baseMessage BaseMessage
 	err = json.Unmarshal(buf, &baseMessage)
 	if err != nil {
-		return nil, err
+		return msg, err
 	}
-
-	err = json.Unmarshal(buf, &msg)
+	msg.Id = baseMessage.MsgId
+	msg.Action = baseMessage.Action
+	msg.Type = baseMessage.MsgType
+	msg.originData = buf
 	return msg, err
 }
 

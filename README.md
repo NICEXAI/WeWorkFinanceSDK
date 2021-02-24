@@ -1,6 +1,9 @@
 # WeWorkFinanceSDK
 企业微信会话存档SDK（基于企业微信C版官方SDK封装），暂时只支持在`linux`环境下使用当前SDK。
 
+### 官方文档地址
+https://open.work.weixin.qq.com/api/doc/90000/90135/91774
+
 ### 使用方式
 
 `clone`项目到自己项目内并`cd`到`WeWorkFinanceSDK/lib`文件夹内执行`export LD_LIBRARY_PATH=$(pwd)`命令设置动态链接库检索地址，然后在项目内引入当前包即可直接使用。
@@ -11,31 +14,33 @@
 package main
 
 import (
-	"encoding/json"
+	"bytes"
 	"fmt"
 	"github.com/NICEXAI/WeWorkFinanceSDK"
+	"io/ioutil"
+	"os"
+	"path"
 )
 
-func main()  {
-	corpID := "xxxxxxxxxxxx"
-	corpSecret := "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-	rsaPrivateKey := `
------BEGIN RSA PRIVATE KEY-----
-xxxxxxxxxxxxxxxxxxxxxxxxxxx
------END RSA PRIVATE KEY-----
-	`
+func main() {
+	corpID := "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+	corpSecret := "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+	rsaPrivateKey := `XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
+
 	//初始化客户端
 	client, err := WeWorkFinanceSDK.NewClient(corpID, corpSecret, rsaPrivateKey)
 	if err != nil {
 		fmt.Printf("SDK 初始化失败：%v \n", err)
 		return
 	}
-	//获取消息
+
+	//同步消息
 	chatDataList, err := client.GetChatData(0, 100, "", "", 3)
 	if err != nil {
 		fmt.Printf("消息同步失败：%v \n", err)
 		return
 	}
+
 	for _, chatData := range chatDataList {
 		//消息解密
 		chatInfo, err := client.DecryptData(chatData.EncryptRandomKey, chatData.EncryptChatMsg)
@@ -43,8 +48,37 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxx
 			fmt.Printf("消息解密失败：%v \n", err)
 			return
 		}
-		str, _ := json.Marshal(chatInfo)
-		fmt.Println(string(str))
+
+		if chatInfo.Type == "image" {
+			image := chatInfo.GetImageMessage()
+			sdkfileid := image.Image.SdkFileId
+
+			isFinish := false
+			buffer := bytes.Buffer{}
+			for !isFinish {
+				//获取媒体数据
+				mediaData, err := client.GetMediaData("", sdkfileid, "", "", 5)
+				if err != nil {
+					fmt.Printf("媒体数据拉取失败：%v \n", err)
+					return
+				}
+				buffer.Write(mediaData.Data)
+				if mediaData.IsFinish {
+					isFinish = mediaData.IsFinish
+				}
+			}
+			filePath, _ := os.Getwd()
+			filePath = path.Join(filePath, "test.png")
+			err := ioutil.WriteFile(filePath, buffer.Bytes(), 0666)
+			if err != nil {
+				fmt.Printf("文件存储失败：%v \n", err)
+				return
+			}
+			break
+		}
 	}
 }
+
+
+
 ```
