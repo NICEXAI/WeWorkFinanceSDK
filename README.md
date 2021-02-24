@@ -6,7 +6,11 @@ https://open.work.weixin.qq.com/api/doc/90000/90135/91774
 
 ### 使用方式
 
-`clone`项目到自己项目内并`cd`到`WeWorkFinanceSDK/lib`文件夹内执行`export LD_LIBRARY_PATH=$(pwd)`命令设置动态链接库检索地址，然后在项目内引入当前包即可直接使用。
+1、执行命令 `go get -u github.com/NICEXAI/WeWorkFinanceSDK` 安装 `go module`
+
+2、从 `github.com/NICEXAI/WeWorkFinanceSDK/lib` 文件夹下复制 `libWeWorkFinanceSdk_C.so` 动态库文件到系统动态链接库默认文件夹下，或者复制到任意文件夹并在当前文件夹下执行 `export LD_LIBRARY_PATH=$(pwd)`命令设置动态链接库检索地址
+
+3、把 `module` 引入到项目中即可使用
 
 ### Example
 
