@@ -6,7 +6,18 @@ https://open.work.weixin.qq.com/api/doc/90000/90135/91774
 
 ### 使用方式
 
-1、执行命令 `go get -u github.com/NICEXAI/WeWorkFinanceSDK` 安装 `go module`
+#### 配置私有仓库
+
+1、执行下面命令设置私有仓库地址到本地
+> go env -w GOPRIVATE=github.com/NICEXAI
+
+2、设置仓库访问凭证
+> git config --global url."https://NICEXAI:a8e1cf7f5d15e8fb8c81fa7efc843af718db14a8@github.com".insteadOf "https://github.com"
+
+#### 安装使用
+
+1、安装 go module
+> go get -u github.com/NICEXAI/WeWorkFinanceSDK
 
 2、从 `github.com/NICEXAI/WeWorkFinanceSDK/lib` 文件夹下复制 `libWeWorkFinanceSdk_C.so` 动态库文件到系统动态链接库默认文件夹下，或者复制到任意文件夹并在当前文件夹下执行 `export LD_LIBRARY_PATH=$(pwd)`命令设置动态链接库检索地址
 
