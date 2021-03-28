@@ -125,6 +125,8 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 		return msg, err
 	}
 	msg.Id = baseMessage.MsgId
+	msg.From = baseMessage.From
+	msg.ToList = baseMessage.ToList
 	msg.Action = baseMessage.Action
 	msg.Type = baseMessage.MsgType
 	msg.originData = buf
