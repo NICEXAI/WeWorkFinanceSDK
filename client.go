@@ -91,6 +91,44 @@ func (s *Client) GetChatData(seq uint64, limit uint64, proxy string, passwd stri
 }
 
 /**
+* 拉取聊天记录函数
+*
+*
+* @param [in]  seq             从指定的seq开始拉取消息，注意的是返回的消息从seq+1开始返回，seq为之前接口返回的最大seq值。首次使用请使用seq:0
+* @param [in]  limit           一次拉取的消息条数，最大值1000条，超过1000条会返回错误
+* @param [in]  proxy           使用代理的请求，需要传入代理的链接。如：socks5://10.0.0.1:8081 或者 http://10.0.0.1:8081
+* @param [in]  passwd          代理账号密码，需要传入代理的账号密码。如 user_name:passwd_123
+* @param [in]  timeout         超时时间，单位秒
+* @return chatDatas       返回本次拉取消息的数据，slice结构体.内容包括errcode/errmsg，以及每条消息内容。示例如下：
+
+{"errcode":0,"errmsg":"ok","chatdata":[{"seq":196,"msgid":"CAQQ2fbb4QUY0On2rYSAgAMgip/yzgs=","publickey_ver":3,"encrypt_random_key":"ftJ+uz3n/z1DsxlkwxNgE+mL38H42/KCvN8T60gbbtPD+Rta1hKTuQPzUzO6Hzne97MgKs7FfdDxDck/v8cDT6gUVjA2tZ/M7euSD0L66opJ/IUeBtpAtvgVSD5qhlaQjvfKJc/zPMGNK2xCLFYqwmQBZXbNT7uA69Fflm512nZKW/piK2RKdYJhRyvQnA1ISxK097sp9WlEgDg250fM5tgwMjujdzr7ehK6gtVBUFldNSJS7ndtIf6aSBfaLktZgwHZ57ONewWq8GJe7WwQf1hwcDbCh7YMG8nsweEwhDfUz+u8rz9an+0lgrYMZFRHnmzjgmLwrR7B/32Qxqd79A==","encrypt_chat_msg":"898WSfGMnIeytTsea7Rc0WsOocs0bIAerF6de0v2cFwqo9uOxrW9wYe5rCjCHHH5bDrNvLxBE/xOoFfcwOTYX0HQxTJaH0ES9OHDZ61p8gcbfGdJKnq2UU4tAEgGb8H+Q9n8syRXIjaI3KuVCqGIi4QGHFmxWenPFfjF/vRuPd0EpzUNwmqfUxLBWLpGhv+dLnqiEOBW41Zdc0OO0St6E+JeIeHlRZAR+E13Isv9eS09xNbF0qQXWIyNUi+ucLr5VuZnPGXBrSfvwX8f0QebTwpy1tT2zvQiMM2MBugKH6NuMzzuvEsXeD+6+3VRqL"}]}
+*/
+func (s *Client) GetRawChatData(seq uint64, limit uint64, proxy string, passwd string, timeout int) (ChatDataResponse, error) {
+	proxyC := C.CString(proxy)
+	passwdC := C.CString(passwd)
+	chatSlice := C.NewSlice()
+	defer func() {
+		C.free(unsafe.Pointer(proxyC))
+		C.free(unsafe.Pointer(passwdC))
+		C.FreeSlice(chatSlice)
+	}()
+
+	retC := C.GetChatData(s.ptr, C.ulonglong(seq), C.uint(limit), proxyC, passwdC, C.int(timeout), chatSlice)
+	ret := int(retC)
+	if ret != 0 {
+		return ChatDataResponse{}, NewSDKErr(ret)
+	}
+	buf := s.GetContentFromSlice(chatSlice)
+
+	var data ChatDataResponse
+	err := json.Unmarshal(buf, &data)
+	if err != nil {
+		return ChatDataResponse{}, err
+	}
+	return data, nil
+}
+
+/**
 * @brief 解析密文.企业微信自有解密内容
 * @param [in]  encrypt_key, getchatdata返回的encrypt_random_key,使用企业自持对应版本秘钥RSA解密后的内容
 * @param [in]  encrypt_msg, getchatdata返回的encrypt_chat_msg
