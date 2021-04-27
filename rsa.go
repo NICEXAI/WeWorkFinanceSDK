@@ -6,10 +6,14 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/pem"
+	"errors"
 )
 
 func RSADecrypt(privateKey string, ciphertext []byte) ([]byte, error) {
 	block, _ := pem.Decode([]byte(privateKey))
+	if block == nil {
+		return nil, errors.New("RSAPrivateKey format invalid, decode failed")
+	}
 	priv, err := x509.ParsePKCS1PrivateKey(block.Bytes)
 	if err != nil {
 		return nil, err
