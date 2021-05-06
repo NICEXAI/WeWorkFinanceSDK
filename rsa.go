@@ -11,7 +11,7 @@ import (
 func RSADecrypt(privateKey string, ciphertext []byte) ([]byte, error) {
 	block, _ := pem.Decode([]byte(privateKey))
 	if block == nil {
-		return nil, NewSDKErr(1006)
+		return nil, NewSDKErr(10006)
 	}
 	priv, err := x509.ParsePKCS1PrivateKey(block.Bytes)
 	if err != nil {
@@ -21,6 +21,9 @@ func RSADecrypt(privateKey string, ciphertext []byte) ([]byte, error) {
 }
 
 func RSADecryptBase64(privateKey string, cryptoText string) ([]byte, error) {
-	encryptedData, _ := base64.StdEncoding.DecodeString(cryptoText)
+	encryptedData, err := base64.StdEncoding.DecodeString(cryptoText)
+	if err != nil {
+		return nil, err
+	}
 	return RSADecrypt(privateKey, encryptedData)
 }
