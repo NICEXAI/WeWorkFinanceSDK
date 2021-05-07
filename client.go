@@ -140,7 +140,7 @@ func (s *Client) GetRawChatData(seq uint64, limit uint64, proxy string, passwd s
 func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg ChatMessage, err error) {
 	encryptKey, err := RSADecryptBase64(s.privateKey, encrypt_random_key)
 	if err != nil {
-		return msg, NewSDKErr(10006)
+		return msg, err
 	}
 	encryptKeyC := C.CString(string(encryptKey))
 	encryptMsgC := C.CString(encryptMsg)
