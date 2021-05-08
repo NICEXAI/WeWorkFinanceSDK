@@ -7,6 +7,7 @@ package WeWorkFinanceSDK
 import "C"
 import (
 	"encoding/json"
+	"strconv"
 	"unsafe"
 )
 
@@ -157,8 +158,9 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 		return msg, NewSDKErr(ret)
 	}
 	buf := s.GetContentFromSlice(msgSlice)
+	str := strconv.QuoteToASCII(string(buf))
 	var baseMessage BaseMessage
-	err = json.Unmarshal(buf, &baseMessage)
+	err = json.Unmarshal([]byte(str), &baseMessage)
 	if err != nil {
 		return msg, err
 	}
