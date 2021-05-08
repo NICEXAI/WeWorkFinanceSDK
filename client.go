@@ -160,6 +160,9 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 	}
 	buf := s.GetContentFromSlice(msgSlice)
 	str := strconv.QuoteToASCII(string(buf))
+	b := []byte(str)
+	b = b[1 : len(b)-1]
+	str = string(b)
 	str = strings.Replace(str, `\x`, `\u00`, -1)
 	var baseMessage BaseMessage
 	err = json.Unmarshal([]byte(str), &baseMessage)
