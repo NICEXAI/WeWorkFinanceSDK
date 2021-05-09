@@ -173,7 +173,6 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 	if err != nil {
 		return msg, err
 	}
-	str = strings.Replace(str, `\u00`, `\x`, -1)
 
 	msg.Id = baseMessage.MsgId
 	msg.From = baseMessage.From
