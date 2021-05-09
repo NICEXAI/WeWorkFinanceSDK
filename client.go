@@ -159,16 +159,22 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 		return msg, NewSDKErr(ret)
 	}
 	buf := s.GetContentFromSlice(msgSlice)
+
+	// handle illegal escape character in text
 	str := strconv.QuoteToASCII(string(buf))
-	b := []byte(str)
-	b = b[1 : len(b)-1]
-	str = string(b)
-	str = strings.Replace(str, `\x`, `\u00`, -1)
+	str = strings.Replace(str, `\x`, `\\u00`, -1)
+	str, err = strconv.Unquote(str)
+
+	if err != nil {
+		return msg, err
+	}
 	var baseMessage BaseMessage
 	err = json.Unmarshal([]byte(str), &baseMessage)
 	if err != nil {
 		return msg, err
 	}
+	str = strings.Replace(str, `\u00`, `\x`, -1)
+
 	msg.Id = baseMessage.MsgId
 	msg.From = baseMessage.From
 	msg.ToList = baseMessage.ToList
