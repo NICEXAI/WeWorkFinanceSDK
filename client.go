@@ -7,8 +7,7 @@ package WeWorkFinanceSDK
 import "C"
 import (
 	"encoding/json"
-	"strconv"
-	"strings"
+	"fmt"
 	"unsafe"
 )
 
@@ -161,15 +160,17 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 	buf := s.GetContentFromSlice(msgSlice)
 
 	// handle illegal escape character in text
-	str := strconv.QuoteToASCII(string(buf))
-	str = strings.Replace(str, `\x`, `\\u00`, -1)
-	str, err = strconv.Unquote(str)
-
-	if err != nil {
-		return msg, err
+	for i := 0; i < len(buf); {
+		fmt.Print(string(buf[i]))
+		if buf[i] < 0x20 {
+			buf = append(buf[:i], buf[i+1:]...)
+			continue
+		}
+		i++
 	}
+
 	var baseMessage BaseMessage
-	err = json.Unmarshal([]byte(str), &baseMessage)
+	err = json.Unmarshal(buf, &baseMessage)
 	if err != nil {
 		return msg, err
 	}
@@ -179,7 +180,7 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 	msg.ToList = baseMessage.ToList
 	msg.Action = baseMessage.Action
 	msg.Type = baseMessage.MsgType
-	msg.originData = []byte(str)
+	msg.originData = buf
 	return msg, err
 }
 
