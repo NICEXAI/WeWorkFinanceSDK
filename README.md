@@ -6,8 +6,6 @@ https://open.work.weixin.qq.com/api/doc/90000/90135/91774
 
 ### 使用方式
 
-#### 配置私有仓库
-
 1、安装 go module
 > go get -u github.com/NICEXAI/WeWorkFinanceSDK
 
