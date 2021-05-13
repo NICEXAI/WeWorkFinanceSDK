@@ -8,14 +8,6 @@ https://open.work.weixin.qq.com/api/doc/90000/90135/91774
 
 #### 配置私有仓库
 
-1、执行下面命令设置私有仓库地址到本地
-> go env -w GOPRIVATE=github.com/NICEXAI
-
-2、设置仓库访问凭证
-> git config --global url."https://NICEXAI:a8e1cf7f5d15e8fb8c81fa7efc843af718db14a8@github.com".insteadOf "https://github.com"
-
-#### 安装使用
-
 1、安装 go module
 > go get -u github.com/NICEXAI/WeWorkFinanceSDK
 
