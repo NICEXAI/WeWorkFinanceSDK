@@ -50,6 +50,9 @@ func NewClient(corpId string, corpSecret string, rsaPrivateKey string) (*Client,
 }
 
 func (s *Client) Free() {
+	if s.ptr == nil {
+		return
+	}
 	C.DestroySdk(s.ptr)
 }
 
@@ -75,6 +78,10 @@ func (s *Client) GetChatData(seq uint64, limit uint64, proxy string, passwd stri
 		C.free(unsafe.Pointer(passwdC))
 		C.FreeSlice(chatSlice)
 	}()
+
+	if s.ptr == nil {
+		return nil, NewSDKErr(10002)
+	}
 
 	retC := C.GetChatData(s.ptr, C.ulonglong(seq), C.uint(limit), proxyC, passwdC, C.int(timeout), chatSlice)
 	ret := int(retC)
@@ -113,6 +120,10 @@ func (s *Client) GetRawChatData(seq uint64, limit uint64, proxy string, passwd s
 		C.free(unsafe.Pointer(passwdC))
 		C.FreeSlice(chatSlice)
 	}()
+
+	if s.ptr == nil {
+		return ChatDataResponse{}, NewSDKErr(10002)
+	}
 
 	retC := C.GetChatData(s.ptr, C.ulonglong(seq), C.uint(limit), proxyC, passwdC, C.int(timeout), chatSlice)
 	ret := int(retC)
@@ -216,6 +227,10 @@ func (s *Client) GetMediaData(indexBuf string, sdkFileId string, proxy string, p
 		C.free(unsafe.Pointer(passwdC))
 		C.FreeMediaData(mediaDataC)
 	}()
+
+	if s.ptr == nil {
+		return nil, NewSDKErr(10002)
+	}
 
 	retC := C.GetMediaData(s.ptr, indexBufC, sdkFileIdC, proxyC, passwdC, C.int(timeout), mediaDataC)
 	ret := int(retC)
