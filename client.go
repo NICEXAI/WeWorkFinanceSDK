@@ -54,6 +54,7 @@ func (s *Client) Free() {
 		return
 	}
 	C.DestroySdk(s.ptr)
+	s.ptr = nil
 }
 
 /**
