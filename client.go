@@ -7,7 +7,6 @@ package WeWorkFinanceSDK
 import "C"
 import (
 	"encoding/json"
-	"fmt"
 	"unsafe"
 )
 
@@ -173,7 +172,6 @@ func (s *Client) DecryptData(encrypt_random_key string, encryptMsg string) (msg 
 
 	// handle illegal escape character in text
 	for i := 0; i < len(buf); {
-		fmt.Print(string(buf[i]))
 		if buf[i] < 0x20 {
 			buf = append(buf[:i], buf[i+1:]...)
 			continue
