@@ -95,6 +95,9 @@ func (s *Client) GetChatData(seq uint64, limit uint64, proxy string, passwd stri
 	if err != nil {
 		return nil, err
 	}
+	if data.ErrCode != 0 {
+		return nil, data.Error
+	}
 	return data.ChatDataList, nil
 }
 
