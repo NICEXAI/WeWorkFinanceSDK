@@ -20,15 +20,15 @@ type ChatData struct {
 }
 
 type ChatMessage struct {
-	Id string 			// 消息id，消息的唯一标识，企业可以使用此字段进行消息去重。
-	From string			// 消息发送方id。同一企业内容为userid，非相同企业为external_userid。消息如果是机器人发出，也为external_userid。
-	ToList []string			// 消息接收方列表，可能是多个，同一个企业内容为userid，非相同企业为external_userid。
-	Action string       // 消息动作，目前有send(发送消息)/recall(撤回消息)/switch(切换企业日志)三种类型。
-	Type string		// 消息类型
-	originData []byte 	// 原始消息对象
+	Id         string   // 消息id，消息的唯一标识，企业可以使用此字段进行消息去重。
+	From       string   // 消息发送方id。同一企业内容为userid，非相同企业为external_userid。消息如果是机器人发出，也为external_userid。
+	ToList     []string // 消息接收方列表，可能是多个，同一个企业内容为userid，非相同企业为external_userid。
+	Action     string   // 消息动作，目前有send(发送消息)/recall(撤回消息)/switch(切换企业日志)三种类型。
+	Type       string   // 消息类型
+	originData []byte   // 原始消息对象
 }
 
-func (c ChatMessage) GetOriginMessage() (msg map[string]interface{})  {
+func (c ChatMessage) GetOriginMessage() (msg map[string]interface{}) {
 	_ = json.Unmarshal(c.originData, &msg)
 	return msg
 }
