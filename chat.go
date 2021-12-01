@@ -2,12 +2,12 @@ package WeWorkFinanceSDK
 
 import "encoding/json"
 
-type ChatDataResponse struct {
+type ChatRawData struct {
 	Error
 	ChatDataList []ChatData `json:"chatdata,omitempty"`
 }
 
-func (c ChatDataResponse) IsError() bool {
+func (c ChatRawData) IsError() bool {
 	return c.ErrCode != 0
 }
 

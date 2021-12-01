@@ -3,17 +3,20 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"github.com/NICEXAI/WeWorkFinanceSDK"
 	"io/ioutil"
 	"os"
 	"path"
-
-	"github.com/NICEXAI/WeWorkFinanceSDK"
 )
 
 func main() {
-	corpID := "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	corpSecret := "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	rsaPrivateKey := `XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
+	corpID := "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	corpSecret := "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	rsaPrivateKey := `
+-----BEGIN RSA PRIVATE KEY-----
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+-----END RSA PRIVATE KEY-----
+`
 
 	//初始化客户端
 	client, err := WeWorkFinanceSDK.NewClient(corpID, corpSecret, rsaPrivateKey)
