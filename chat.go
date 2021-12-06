@@ -28,9 +28,15 @@ type ChatMessage struct {
 	originData []byte   // 原始消息对象
 }
 
+// Unmarshal the origin data into map[string]interface{}
 func (c ChatMessage) GetOriginMessage() (msg map[string]interface{}) {
 	_ = json.Unmarshal(c.originData, &msg)
 	return msg
+}
+
+// Just return the raw json data.
+func (c ChatMessage) GetRawChatMessage() json.RawMessage {
+	return json.RawMessage(c.originData)
 }
 
 func (c ChatMessage) GetTextMessage() (msg TextMessage) {
