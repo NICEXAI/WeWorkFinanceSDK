@@ -42,4 +42,8 @@ type Client interface {
 	//  	!=0 - 失败
 	//
 	GetMediaData(indexBuf string, sdkFileId string, proxy string, passwd string, timeout int) (*MediaData, error)
+
+	// Free 释放 Client
+	// 释放 C 指针,避免内存泄漏
+	Free()
 }
