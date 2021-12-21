@@ -94,7 +94,7 @@ func (c ChatMessage) GetLinkMessage() (msg LinkMessage) {
 	return msg
 }
 
-func (c ChatMessage) GetWeappMessage() (msg WeappMessage) {
+func (c ChatMessage) GetWeappMessage() (msg WeAppMessage) {
 	_ = json.Unmarshal(c.originData, &msg)
 	return msg
 }
@@ -119,7 +119,7 @@ func (c ChatMessage) GetCollectMessage() (msg CollectMessage) {
 	return msg
 }
 
-func (c ChatMessage) GetRedpacketMessage() (msg RedpacketMessage) {
+func (c ChatMessage) GetRedpacketMessage() (msg RedPacketMessage) {
 	_ = json.Unmarshal(c.originData, &msg)
 	return msg
 }
