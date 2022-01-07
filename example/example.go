@@ -42,7 +42,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 		if chatInfo.Type == "image" {
 			image := chatInfo.GetImageMessage()
-			sdkfileid := image.Image.SdkFileId
+			sdkfileid := image.Image.SdkFileID
 
 			isFinish := false
 			buffer := bytes.Buffer{}
