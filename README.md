@@ -28,9 +28,13 @@ import (
 )
 
 func main() {
-	corpID := "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	corpSecret := "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	rsaPrivateKey := `XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
+	corpID := "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	corpSecret := "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	rsaPrivateKey := `
+-----BEGIN RSA PRIVATE KEY-----
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+-----END RSA PRIVATE KEY-----
+`
 
 	//初始化客户端
 	client, err := WeWorkFinanceSDK.NewClient(corpID, corpSecret, rsaPrivateKey)
@@ -56,13 +60,14 @@ func main() {
 
 		if chatInfo.Type == "image" {
 			image := chatInfo.GetImageMessage()
-			sdkfileid := image.Image.SdkFileId
+			sdkfileid := image.Image.SdkFileID
 
 			isFinish := false
 			buffer := bytes.Buffer{}
+			index_buf := ""
 			for !isFinish {
 				//获取媒体数据
-				mediaData, err := client.GetMediaData("", sdkfileid, "", "", 5)
+				mediaData, err := client.GetMediaData(index_buf, sdkfileid, "", "", 5)
 				if err != nil {
 					fmt.Printf("媒体数据拉取失败：%v \n", err)
 					return
@@ -71,6 +76,7 @@ func main() {
 				if mediaData.IsFinish {
 					isFinish = mediaData.IsFinish
 				}
+				index_buf = mediaData.OutIndexBuf
 			}
 			filePath, _ := os.Getwd()
 			filePath = path.Join(filePath, "test.png")
@@ -83,7 +89,5 @@ func main() {
 		}
 	}
 }
-
-
 
 ```
