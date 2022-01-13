@@ -138,7 +138,7 @@ func (s *SdkClient) DecryptData(encryptRandomKey string, encryptMsg string) (msg
 		return msg, err
 	}
 
-	msg.Id = baseMessage.MsgId
+	msg.Id = baseMessage.MsgID
 	msg.From = baseMessage.From
 	msg.ToList = baseMessage.ToList
 	msg.Action = baseMessage.Action
