@@ -179,12 +179,7 @@ func (c ChatMessage) GetSwitchMessage() (msg SwitchMessage) {
 	return msg
 }
 
-// VoiptextMessage 音视频通话
-// 类型为：voiptext
-type VoiptextMessage struct {
-	BaseMessage
-	Voiptext struct {
-		Callduration uint32 `json:"feed_type,omitempty"`  // 通话时长，单位秒
-		Invitetype   uint32 `json:"invitetype,omitempty"` // 通话类型，1; //单人视频通话 2; //单人语音通话 3; //多人视频通话 4; //多人语音通话
-	}
+func (c ChatMessage) GetVoiptextMessage() (msg VoiptextMessage) {
+	_ = json.Unmarshal(c.originData, &msg)
+	return msg
 }
