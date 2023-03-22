@@ -143,6 +143,8 @@ func (s *SdkClient) DecryptData(encryptRandomKey string, encryptMsg string) (msg
 	msg.ToList = baseMessage.ToList
 	msg.Action = baseMessage.Action
 	msg.Type = baseMessage.MsgType
+	msg.RoomID = baseMessage.RoomID
+	msg.MsgTime = baseMessage.MsgTime
 	msg.originData = buf
 	return msg, err
 }
