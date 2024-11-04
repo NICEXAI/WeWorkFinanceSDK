@@ -102,8 +102,11 @@ func (s *SdkClient) GetChatData(seq uint64, limit uint64, proxy string, passwd s
 *      0   - 成功
 *      !=0 - 失败
  */
-func (s *SdkClient) DecryptData(encryptRandomKey string, encryptMsg string) (msg ChatMessage, err error) {
-	encryptKey, err := RSADecryptBase64(s.privateKey, encryptRandomKey)
+func (s *SdkClient) DecryptData(encryptRandomKey string, encryptMsg string,specificPrivateKey string) (msg ChatMessage, err error) {
+	if(specificPrivateKey == ""){
+		specificPrivateKey = s.privateKey
+	}
+	encryptKey, err := RSADecryptBase64(specificPrivateKey, encryptRandomKey)
 	if err != nil {
 		return msg, err
 	}

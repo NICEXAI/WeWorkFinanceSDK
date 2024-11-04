@@ -24,7 +24,7 @@ type Client interface {
 	//      0   - 成功
 	//  	!=0 - 失败
 	//
-	DecryptData(encryptRandomKey string, encryptMsg string) (msg ChatMessage, err error)
+	DecryptData(encryptRandomKey string, encryptMsg string,specificPrivateKey string) (msg ChatMessage, err error)
 
 	// GetMediaData 拉取媒体消息函数
 	//
