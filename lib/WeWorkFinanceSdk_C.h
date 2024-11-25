@@ -1,25 +1,25 @@
 // All Rights Reserved.
-// *File £º WeWorkFinanceSdk_C.h
-// @Brief£ºÀ­È¡ÆóÒµÁÄÌì¼ÇÂ¼ÓëÃ½ÌåÏûÏ¢sdkÍ·ÎÄ¼ş
+// *File ï¼š WeWorkFinanceSdk_C.h
+// @Briefï¼šæ‹‰å–ä¼ä¸šèŠå¤©è®°å½•ä¸åª’ä½“æ¶ˆæ¯sdkå¤´æ–‡ä»¶
 
 #pragma once
-//·µ»ØÂë	´íÎóËµÃ÷
-//10000	²ÎÊı´íÎó£¬ÇëÇó²ÎÊı´íÎó
-//10001	ÍøÂç´íÎó£¬ÍøÂçÇëÇó´íÎó
-//10002	Êı¾İ½âÎöÊ§°Ü
-//10003	ÏµÍ³Ê§°Ü
-//10004	ÃÜÔ¿´íÎóµ¼ÖÂ¼ÓÃÜÊ§°Ü
-//10005	fileid´íÎó
-//10006	½âÃÜÊ§°Ü
-//10007 ÕÒ²»µ½ÏûÏ¢¼ÓÃÜ°æ±¾µÄË½Ô¿£¬ĞèÒªÖØĞÂ´«ÈëË½Ô¿¶Ô
-//10008 ½âÎöencrypt_key³ö´í
-//10009 ip·Ç·¨
-//10010 Êı¾İ¹ıÆÚ
-//10011	Ö¤Êé´íÎó
+//è¿”å›ç 	é”™è¯¯è¯´æ˜
+//10000	å‚æ•°é”™è¯¯ï¼Œè¯·æ±‚å‚æ•°é”™è¯¯
+//10001	ç½‘ç»œé”™è¯¯ï¼Œç½‘ç»œè¯·æ±‚é”™è¯¯
+//10002	æ•°æ®è§£æå¤±è´¥
+//10003	ç³»ç»Ÿå¤±è´¥
+//10004	å¯†é’¥é”™è¯¯å¯¼è‡´åŠ å¯†å¤±è´¥
+//10005	fileidé”™è¯¯
+//10006	è§£å¯†å¤±è´¥
+//10007 æ‰¾ä¸åˆ°æ¶ˆæ¯åŠ å¯†ç‰ˆæœ¬çš„ç§é’¥ï¼Œéœ€è¦é‡æ–°ä¼ å…¥ç§é’¥å¯¹
+//10008 è§£æencrypt_keyå‡ºé”™
+//10009 ipéæ³•
+//10010 æ•°æ®è¿‡æœŸ
+//10011	è¯ä¹¦é”™è¯¯
 
 typedef struct WeWorkFinanceSdk_t WeWorkFinanceSdk_t;
 
-// Êı¾İ
+// æ•°æ®
 typedef struct Slice_t {
     char* buf;
     int len;
@@ -42,100 +42,100 @@ extern "C" {
                                
 
 	/**
-	 * ³õÊ¼»¯º¯Êı
-	 * ReturnÖµ=0±íÊ¾¸ÃAPIµ÷ÓÃ³É¹¦
+	 * åˆå§‹åŒ–å‡½æ•°
+	 * Returnå€¼=0è¡¨ç¤ºè¯¥APIè°ƒç”¨æˆåŠŸ
 	 * 
-	 * @param [in]  sdk			NewSdk·µ»ØµÄsdkÖ¸Õë
-	 * @param [in]  corpid      µ÷ÓÃÆóÒµµÄÆóÒµid£¬ÀıÈç£ºwwd08c8exxxx5ab44d£¬¿ÉÒÔÔÚÆóÒµÎ¢ĞÅ¹ÜÀí¶Ë--ÎÒµÄÆóÒµ--ÆóÒµĞÅÏ¢²é¿´
-	 * @param [in]  secret		ÁÄÌìÄÚÈİ´æµµµÄSecret£¬¿ÉÒÔÔÚÆóÒµÎ¢ĞÅ¹ÜÀí¶Ë--¹ÜÀí¹¤¾ß--ÁÄÌìÄÚÈİ´æµµ²é¿´
+	 * @param [in]  sdk			NewSdkè¿”å›çš„sdkæŒ‡é’ˆ
+	 * @param [in]  corpid      è°ƒç”¨ä¼ä¸šçš„ä¼ä¸šidï¼Œä¾‹å¦‚ï¼šwwd08c8exxxx5ab44dï¼Œå¯ä»¥åœ¨ä¼ä¸šå¾®ä¿¡ç®¡ç†ç«¯--æˆ‘çš„ä¼ä¸š--ä¼ä¸šä¿¡æ¯æŸ¥çœ‹
+	 * @param [in]  secret		èŠå¤©å†…å®¹å­˜æ¡£çš„Secretï¼Œå¯ä»¥åœ¨ä¼ä¸šå¾®ä¿¡ç®¡ç†ç«¯--ç®¡ç†å·¥å…·--èŠå¤©å†…å®¹å­˜æ¡£æŸ¥çœ‹
 	 *						
 	 *
-	 * @return ·µ»ØÊÇ·ñ³õÊ¼»¯³É¹¦
-	 *      0   - ³É¹¦
-	 *      !=0 - Ê§°Ü
+	 * @return è¿”å›æ˜¯å¦åˆå§‹åŒ–æˆåŠŸ
+	 *      0   - æˆåŠŸ
+	 *      !=0 - å¤±è´¥
 	 */
     int Init(WeWorkFinanceSdk_t* sdk, const char* corpid, const char* secret);
 
 	/**
-	 * À­È¡ÁÄÌì¼ÇÂ¼º¯Êı
-	 * ReturnÖµ=0±íÊ¾¸ÃAPIµ÷ÓÃ³É¹¦
+	 * æ‹‰å–èŠå¤©è®°å½•å‡½æ•°
+	 * Returnå€¼=0è¡¨ç¤ºè¯¥APIè°ƒç”¨æˆåŠŸ
 	 * 
 	 *
-	 * @param [in]  sdk				NewSdk·µ»ØµÄsdkÖ¸Õë
-	 * @param [in]  seq				´ÓÖ¸¶¨µÄseq¿ªÊ¼À­È¡ÏûÏ¢£¬×¢ÒâµÄÊÇ·µ»ØµÄÏûÏ¢´Óseq+1¿ªÊ¼·µ»Ø£¬seqÎªÖ®Ç°½Ó¿Ú·µ»ØµÄ×î´óseqÖµ¡£Ê×´ÎÊ¹ÓÃÇëÊ¹ÓÃseq:0
-	 * @param [in]  limit			Ò»´ÎÀ­È¡µÄÏûÏ¢ÌõÊı£¬×î´óÖµ1000Ìõ£¬³¬¹ı1000Ìõ»á·µ»Ø´íÎó
-	 * @param [in]  proxy			Ê¹ÓÃ´úÀíµÄÇëÇó£¬ĞèÒª´«Èë´úÀíµÄÁ´½Ó¡£Èç£ºsocks5://10.0.0.1:8081 »òÕß http://10.0.0.1:8081
-	 * @param [in]  passwd			´úÀíÕËºÅÃÜÂë£¬ĞèÒª´«Èë´úÀíµÄÕËºÅÃÜÂë¡£Èç user_name:passwd_123
-	 * @param [in]  timeout			³¬Ê±Ê±¼ä£¬µ¥Î»Ãë
-	 * @param [out] chatDatas		·µ»Ø±¾´ÎÀ­È¡ÏûÏ¢µÄÊı¾İ£¬slice½á¹¹Ìå.ÄÚÈİ°üÀ¨errcode/errmsg£¬ÒÔ¼°Ã¿ÌõÏûÏ¢ÄÚÈİ¡£Ê¾ÀıÈçÏÂ£º
+	 * @param [in]  sdk				NewSdkè¿”å›çš„sdkæŒ‡é’ˆ
+	 * @param [in]  seq				ä»æŒ‡å®šçš„seqå¼€å§‹æ‹‰å–æ¶ˆæ¯ï¼Œæ³¨æ„çš„æ˜¯è¿”å›çš„æ¶ˆæ¯ä»seq+1å¼€å§‹è¿”å›ï¼Œseqä¸ºä¹‹å‰æ¥å£è¿”å›çš„æœ€å¤§seqå€¼ã€‚é¦–æ¬¡ä½¿ç”¨è¯·ä½¿ç”¨seq:0
+	 * @param [in]  limit			ä¸€æ¬¡æ‹‰å–çš„æ¶ˆæ¯æ¡æ•°ï¼Œæœ€å¤§å€¼1000æ¡ï¼Œè¶…è¿‡1000æ¡ä¼šè¿”å›é”™è¯¯
+	 * @param [in]  proxy			ä½¿ç”¨ä»£ç†çš„è¯·æ±‚ï¼Œéœ€è¦ä¼ å…¥ä»£ç†çš„é“¾æ¥ã€‚å¦‚ï¼šsocks5://10.0.0.1:8081 æˆ–è€… http://10.0.0.1:8081
+	 * @param [in]  passwd			ä»£ç†è´¦å·å¯†ç ï¼Œéœ€è¦ä¼ å…¥ä»£ç†çš„è´¦å·å¯†ç ã€‚å¦‚ user_name:passwd_123
+	 * @param [in]  timeout			è¶…æ—¶æ—¶é—´ï¼Œå•ä½ç§’
+	 * @param [out] chatDatas		è¿”å›æœ¬æ¬¡æ‹‰å–æ¶ˆæ¯çš„æ•°æ®ï¼Œsliceç»“æ„ä½“.å†…å®¹åŒ…æ‹¬errcode/errmsgï¼Œä»¥åŠæ¯æ¡æ¶ˆæ¯å†…å®¹ã€‚ç¤ºä¾‹å¦‚ä¸‹ï¼š
 
 	 {"errcode":0,"errmsg":"ok","chatdata":[{"seq":196,"msgid":"CAQQ2fbb4QUY0On2rYSAgAMgip/yzgs=","publickey_ver":3,"encrypt_random_key":"ftJ+uz3n/z1DsxlkwxNgE+mL38H42/KCvN8T60gbbtPD+Rta1hKTuQPzUzO6Hzne97MgKs7FfdDxDck/v8cDT6gUVjA2tZ/M7euSD0L66opJ/IUeBtpAtvgVSD5qhlaQjvfKJc/zPMGNK2xCLFYqwmQBZXbNT7uA69Fflm512nZKW/piK2RKdYJhRyvQnA1ISxK097sp9WlEgDg250fM5tgwMjujdzr7ehK6gtVBUFldNSJS7ndtIf6aSBfaLktZgwHZ57ONewWq8GJe7WwQf1hwcDbCh7YMG8nsweEwhDfUz+u8rz9an+0lgrYMZFRHnmzjgmLwrR7B/32Qxqd79A==","encrypt_chat_msg":"898WSfGMnIeytTsea7Rc0WsOocs0bIAerF6de0v2cFwqo9uOxrW9wYe5rCjCHHH5bDrNvLxBE/xOoFfcwOTYX0HQxTJaH0ES9OHDZ61p8gcbfGdJKnq2UU4tAEgGb8H+Q9n8syRXIjaI3KuVCqGIi4QGHFmxWenPFfjF/vRuPd0EpzUNwmqfUxLBWLpGhv+dLnqiEOBW41Zdc0OO0St6E+JeIeHlRZAR+E13Isv9eS09xNbF0qQXWIyNUi+ucLr5VuZnPGXBrSfvwX8f0QebTwpy1tT2zvQiMM2MBugKH6NuMzzuvEsXeD+6+3VRqL"}]}
 
 	 *
-	 * @return ·µ»ØÊÇ·ñµ÷ÓÃ³É¹¦
-	 *      0   - ³É¹¦
-	 *      !=0 - Ê§°Ü	
+	 * @return è¿”å›æ˜¯å¦è°ƒç”¨æˆåŠŸ
+	 *      0   - æˆåŠŸ
+	 *      !=0 - å¤±è´¥	
 	 */		
     int GetChatData(WeWorkFinanceSdk_t* sdk, unsigned long long seq, unsigned int limit, const char *proxy,const char* passwd, int timeout,Slice_t* chatDatas);
 
 	/**
-     * @brief ½âÎöÃÜÎÄ.ÆóÒµÎ¢ĞÅ×ÔÓĞ½âÃÜÄÚÈİ
-     * @param [in]  encrypt_key, getchatdata·µ»ØµÄencrypt_random_key,Ê¹ÓÃÆóÒµ×Ô³Ö¶ÔÓ¦°æ±¾ÃØÔ¿RSA½âÃÜºóµÄÄÚÈİ
-     * @param [in]  encrypt_msg, getchatdata·µ»ØµÄencrypt_chat_msg
-     * @param [out] msg, ½âÃÜµÄÏûÏ¢Ã÷ÎÄ
-	 * @return ·µ»ØÊÇ·ñµ÷ÓÃ³É¹¦
-	 *      0   - ³É¹¦
-	 *      !=0 - Ê§°Ü
+     * @brief è§£æå¯†æ–‡.ä¼ä¸šå¾®ä¿¡è‡ªæœ‰è§£å¯†å†…å®¹
+     * @param [in]  encrypt_key, getchatdataè¿”å›çš„encrypt_random_key,ä½¿ç”¨ä¼ä¸šè‡ªæŒå¯¹åº”ç‰ˆæœ¬ç§˜é’¥RSAè§£å¯†åçš„å†…å®¹
+     * @param [in]  encrypt_msg, getchatdataè¿”å›çš„encrypt_chat_msg
+     * @param [out] msg, è§£å¯†çš„æ¶ˆæ¯æ˜æ–‡
+	 * @return è¿”å›æ˜¯å¦è°ƒç”¨æˆåŠŸ
+	 *      0   - æˆåŠŸ
+	 *      !=0 - å¤±è´¥
      */
     int DecryptData(const char* encrypt_key, const char* encrypt_msg, Slice_t* msg);
 
 	/**
-	 * À­È¡Ã½ÌåÏûÏ¢º¯Êı
-	 * ReturnÖµ=0±íÊ¾¸ÃAPIµ÷ÓÃ³É¹¦
+	 * æ‹‰å–åª’ä½“æ¶ˆæ¯å‡½æ•°
+	 * Returnå€¼=0è¡¨ç¤ºè¯¥APIè°ƒç”¨æˆåŠŸ
 	 * 
 	 *
-	 * @param [in]  sdk				NewSdk·µ»ØµÄsdkÖ¸Õë
-	 * @param [in]  sdkFileid		´ÓGetChatData·µ»ØµÄÁÄÌìÏûÏ¢ÖĞ£¬Ã½ÌåÏûÏ¢°üÀ¨µÄsdkfileid
-	 * @param [in]  proxy			Ê¹ÓÃ´úÀíµÄÇëÇó£¬ĞèÒª´«Èë´úÀíµÄÁ´½Ó¡£Èç£ºsocks5://10.0.0.1:8081 »òÕß http://10.0.0.1:8081
-	 * @param [in]  passwd			´úÀíÕËºÅÃÜÂë£¬ĞèÒª´«Èë´úÀíµÄÕËºÅÃÜÂë¡£Èç user_name:passwd_123
-	 * @param [in]  indexbuf		Ã½ÌåÏûÏ¢·ÖÆ¬À­È¡£¬ĞèÒªÌîÈëÃ¿´ÎÀ­È¡µÄË÷ÒıĞÅÏ¢¡£Ê×´Î²»ĞèÒªÌîĞ´£¬Ä¬ÈÏÀ­È¡512k£¬ºóĞøÃ¿´Îµ÷ÓÃÖ»ĞèÒª½«ÉÏ´Îµ÷ÓÃ·µ»ØµÄoutindexbufÌîÈë¼´¿É¡£
-	 * @param [in]  timeout			³¬Ê±Ê±¼ä£¬µ¥Î»Ãë
-	 * @param [out] media_data		·µ»Ø±¾´ÎÀ­È¡µÄÃ½ÌåÊı¾İ.MediaData½á¹¹Ìå.ÄÚÈİ°üÀ¨data(Êı¾İÄÚÈİ)/outindexbuf(ÏÂ´ÎË÷Òı)/is_finish(À­È¡Íê³É±ê¼Ç)
+	 * @param [in]  sdk				NewSdkè¿”å›çš„sdkæŒ‡é’ˆ
+	 * @param [in]  sdkFileid		ä»GetChatDataè¿”å›çš„èŠå¤©æ¶ˆæ¯ä¸­ï¼Œåª’ä½“æ¶ˆæ¯åŒ…æ‹¬çš„sdkfileid
+	 * @param [in]  proxy			ä½¿ç”¨ä»£ç†çš„è¯·æ±‚ï¼Œéœ€è¦ä¼ å…¥ä»£ç†çš„é“¾æ¥ã€‚å¦‚ï¼šsocks5://10.0.0.1:8081 æˆ–è€… http://10.0.0.1:8081
+	 * @param [in]  passwd			ä»£ç†è´¦å·å¯†ç ï¼Œéœ€è¦ä¼ å…¥ä»£ç†çš„è´¦å·å¯†ç ã€‚å¦‚ user_name:passwd_123
+	 * @param [in]  indexbuf		åª’ä½“æ¶ˆæ¯åˆ†ç‰‡æ‹‰å–ï¼Œéœ€è¦å¡«å…¥æ¯æ¬¡æ‹‰å–çš„ç´¢å¼•ä¿¡æ¯ã€‚é¦–æ¬¡ä¸éœ€è¦å¡«å†™ï¼Œé»˜è®¤æ‹‰å–512kï¼Œåç»­æ¯æ¬¡è°ƒç”¨åªéœ€è¦å°†ä¸Šæ¬¡è°ƒç”¨è¿”å›çš„outindexbufå¡«å…¥å³å¯ã€‚
+	 * @param [in]  timeout			è¶…æ—¶æ—¶é—´ï¼Œå•ä½ç§’
+	 * @param [out] media_data		è¿”å›æœ¬æ¬¡æ‹‰å–çš„åª’ä½“æ•°æ®.MediaDataç»“æ„ä½“.å†…å®¹åŒ…æ‹¬data(æ•°æ®å†…å®¹)/outindexbuf(ä¸‹æ¬¡ç´¢å¼•)/is_finish(æ‹‰å–å®Œæˆæ ‡è®°)
 	 
 	 *
-	 * @return ·µ»ØÊÇ·ñµ÷ÓÃ³É¹¦
-	 *      0   - ³É¹¦
-	 *      !=0 - Ê§°Ü
+	 * @return è¿”å›æ˜¯å¦è°ƒç”¨æˆåŠŸ
+	 *      0   - æˆåŠŸ
+	 *      !=0 - å¤±è´¥
 	 */
 	int GetMediaData(WeWorkFinanceSdk_t* sdk, const char* indexbuf,
                      const char* sdkFileid,const char *proxy,const char* passwd, int timeout, MediaData_t* media_data);
 
     /**
-     * @brief ÊÍ·Åsdk£¬ºÍNewSdk³É¶ÔÊ¹ÓÃ
+     * @brief é‡Šæ”¾sdkï¼Œå’ŒNewSdkæˆå¯¹ä½¿ç”¨
      * @return 
      */
     void DestroySdk(WeWorkFinanceSdk_t* sdk);
 
 
-    //--------------ÏÂÃæ½Ó¿ÚÎªÁËÆäËûÓïÑÔÀıÈçpythonµÈµ÷ÓÃc½Ó¿Ú£¬×ÃÇéÊ¹ÓÃ--------------
+    //--------------ä¸‹é¢æ¥å£ä¸ºäº†å…¶ä»–è¯­è¨€ä¾‹å¦‚pythonç­‰è°ƒç”¨cæ¥å£ï¼Œé…Œæƒ…ä½¿ç”¨--------------
     Slice_t* NewSlice();
 
     /**
-     * @brief ÊÍ·Åslice£¬ºÍNewSlice³É¶ÔÊ¹ÓÃ
+     * @brief é‡Šæ”¾sliceï¼Œå’ŒNewSliceæˆå¯¹ä½¿ç”¨
      * @return 
      */
     void FreeSlice(Slice_t* slice);
 
     /**
-     * @brief ÎªÆäËûÓïÑÔÌá¹©¶ÁÈ¡½Ó¿Ú
-     * @return ·µ»ØbufÖ¸Õë
-     *     !=NULL - ³É¹¦
-     *     NULL   - Ê§°Ü
+     * @brief ä¸ºå…¶ä»–è¯­è¨€æä¾›è¯»å–æ¥å£
+     * @return è¿”å›bufæŒ‡é’ˆ
+     *     !=NULL - æˆåŠŸ
+     *     NULL   - å¤±è´¥
      */
     char* GetContentFromSlice(Slice_t* slice);
 	int GetSliceLen(Slice_t* slice);
 
-	// Ã½Ìå¼ÇÂ¼Ïà¹Ø¹¤¾ß
+	// åª’ä½“è®°å½•ç›¸å…³å·¥å…·
 
     MediaData_t*  NewMediaData();
 
